@@ -1,31 +1,59 @@
+#coding=utf-8
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
 
-import pymongo , pdb
+import pymongo , pdb , os
+
+from models import get_coll
 
 from tornado.options import define, options
 define("port", default=8000, help="run on the given port", type=int)
 
 class Application(tornado.web.Application):
     def __init__(self):
-        handlers = [(r"/", WordHandler)]
-        client = pymongo.MongoClient()
-        db = client.test_database
-        self.db = db
-        tornado.web.Application.__init__(self, handlers, debug=True)
+        handlers = [
+            (r"/", IndexHandler) ,
+            (r"/user_address_list", UserAddressListHandler) ,
+
+        ] 
+        settings = dict(
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            debug=True,
+        )
+        tornado.web.Application.__init__(self, handlers,**settings)
+
+class IndexHandler(tornado.web.RequestHandler) :
+    def get(self) :
+        self.render(
+            "index.html",
+            page_title = "user address",
+            header_text = "用户地址列表",
+        )
 
 class UserAddressListHandler(tornado.web.RequestHandler):
-    def get(self, word):
-        coll = self.application.db.example
-        word_doc = coll.find_one({"word": word})
-        if word_doc:
-            del word_doc["_id"]
-            self.write(word_doc)
-        else:
-            self.set_status(404)
-            self.write({"error": "word not found"})
+    def get(self):
+        pdb.set_trace()
+        result = {}
+        result["success"] = 1
+        result["return_code"] = "success"
+        result["data"] = {}
+
+        coll = get_coll("user","UserAddress")
+        
+        user_address_list = []
+        temp_user_address_list = []
+        [ temp_user_address_list.append(address) for address in coll.find() ]
+        for address in temp_user_address_list :
+            del address["user_id"]
+
+        [ user_address_list.append(address) for address in temp_user_address_list ]
+        result["data"]["user_address_list"] = user_address_list
+
+        self.write({"result": result})
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
