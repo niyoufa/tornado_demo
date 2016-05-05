@@ -1,3 +1,5 @@
+
+１.　项目要求
 27~29日：使用最基础的tornado框架（不需要现在用的额外框架），pymongo 实现以下这个模块：
 地址模块，
 1.需要有增删改差四个基本功能（url用/api/address），
@@ -11,3 +13,19 @@
 
 最好含有基础的异常处理
 返回Json数据格式统一为{"success":[0或1 0为失败 1为成功],"return_code":[当success为0时返回错误信息 为1时返回success],"data":[成功时返回需要的数据]}
+
+２.　项目介绍
+
+main.py : 程序启动模块
+settings.py : 服务器配置模块
+models.py : 数据操作接口模块
+handlers.py : 业务处理模块
+status.py : 状态码配置模块
+types.py : 类型配置模块
+utils.py :公用接口模块
+
+３.　使用说明
+
+（1）在 models.py 所在目录执行 python models.py 初始化 测试数据
+（2）在 main.py 所在目录执行 python main.py 启动 web 服务
+（3）客户端发送请求测试服务器功能

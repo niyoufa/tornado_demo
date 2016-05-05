@@ -17,13 +17,11 @@ class LoginHandler(BaseHandler):
 
     def post(self):
         self.set_secure_cookie("username", self.get_argument("username"))
-        # self.set_secure_cookie("username", "")
         self.redirect("/")
 
 class WelcomeHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        pdb.set_trace()
         self.render('index.html', user=self.current_user)
 
 class LogoutHandler(BaseHandler):
@@ -52,3 +50,6 @@ if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
+
+
+# get_current_user , current_user , get_secure_cookie , set_secure_cookie , tornado.web.authenticated 
