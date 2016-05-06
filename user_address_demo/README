@@ -19,6 +19,7 @@
 main.py : 程序启动模块
 settings.py : 服务器配置模块
 models.py : 数据操作接口模块
+urls.py :路由配置模块
 handlers.py : 业务处理模块
 status.py : 状态码配置模块
 types.py : 类型配置模块

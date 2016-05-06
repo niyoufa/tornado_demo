@@ -22,7 +22,8 @@ def enum(**kwargs):
     #动态生成Enum类，类属性动态变化
     return type('Enum', (object, ), attrs)
 
-#Mongodb Collection Define
-Collection = enum(
+#Mongodb Collection Type Define
+CollectionType = enum(
     UserAddress = (0,u"用户地址表") ,
 )
+
