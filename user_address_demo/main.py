@@ -1,19 +1,24 @@
 #coding=utf-8
 
-import pdb , os
+import pdb , platform
+import sys , os
+BASE_DIR = os.path.abspath(__file__)
+_root = os.path.dirname(BASE_DIR)
+sys.path.append(_root)
 
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 
-import urls
+import app
+import lib.options
+from lib.options import parse_options
 
 from tornado.options import define, options
-define("port", default=8000, help="run on the given port", type=int)
 
 if __name__ == "__main__":
-    tornado.options.parse_command_line()
-    http_server = tornado.httpserver.HTTPServer(urls.Application())
-    http_server.listen(options.port)
+    parse_options()
+    http_server = tornado.httpserver.HTTPServer(app.Application())
+    http_server.listen(options.SERVER_PORT)
     print "\nserver start ! \n"
     tornado.ioloop.IOLoop.instance().start()

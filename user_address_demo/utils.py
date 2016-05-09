@@ -54,3 +54,14 @@ def sort_list(list_obj,sort_key) :
     else :
         list_obj.sort(key=lambda obj :obj[sort_key])
     return list_obj
+
+#导入项目代码
+def load_project():
+    # import sys , os
+    # BASE_DIR = os.path.abspath(__file__)
+    # _root = os.path.dirname(BASE_DIR)
+    # sys.path.append(_root)
+
+    import sys , os
+    BASE_DIR = "E:\\develop\\tornado_demo\\user_address_demo"
+    sys.path.append(BASE_DIR)

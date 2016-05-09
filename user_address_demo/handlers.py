@@ -6,7 +6,7 @@ import tornado.web
 
 import status
 import utils
-import models
+from model import models
 
 
 #测试
@@ -204,12 +204,11 @@ class UserAddressHandler(tornado.web.RequestHandler) :
 
         try :
             address_id = self.get_argument("address_id")
-            obj_id = utils.create_objectid(address_id)
         except Exception ,e :
             result = utils.reset_response_data(status.Status.PARMAS_ERROR,error_info=str(e))
             self.write(result)
             return
-
+        obj_id = utils.create_objectid(address_id)
         query_params = dict(
             _id = obj_id ,
         )
@@ -223,3 +222,11 @@ class UserAddressHandler(tornado.web.RequestHandler) :
             result["data"] = address
 
         self.write(result)
+
+
+handlers = [
+    (r"/",IndexHandler),
+    (r"/api/address/list",UserAddressListHandler),
+    (r"/api/address/default",UserAddressDefaultHandler),
+    (r"/api/address",UserAddressHandler),
+]
