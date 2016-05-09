@@ -1,7 +1,7 @@
 #coding=utf-8
 import os , sys , pdb
 
-sys.path.append("E:\\develop\\tornado_demo")
+sys.path.append("/home/nyf/develop/dhui/tornado_demo")
 import user_address_demo
 
 BASE_DIR = os.path.dirname(os.path.join(user_address_demo.__file__,"user_address_demo.settings"))
