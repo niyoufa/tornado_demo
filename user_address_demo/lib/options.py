@@ -25,7 +25,7 @@ def parse_config_file(path):
 
 
 def parse_options():
-    _root = os.path.join(os.path.dirname(os.path.abspath(settings.BASE_DIR)))
+    _root = settings.BASE_DIR
     _settings = os.path.join(_root, "settings.py")
     #_settings_local = os.path.join(_root, "settings_local.py")
 

@@ -2,13 +2,10 @@
 import os , sys , pdb
 import platform
 
-if platform.system() == "Linux":
-    sys.path.append("/home/nyf/develop/dhui/tornado_demo")
-else:
-    sys.path.append("E:\\develop\\tornado_demo")
+sys.path.append(os.path.dirname(os.getcwd()))
 import user_address_demo
 
-BASE_DIR = os.path.dirname(os.path.join(user_address_demo.__file__,"user_address_demo.settings"))
+BASE_DIR = os.path.dirname(user_address_demo.__file__)
 
 SERVER_HOST = "localhost"
 SERVER_PORT = 8000
