@@ -54,7 +54,7 @@ class UserAddressListHandler(tornado.web.RequestHandler) :
 #设置用户指定地址为默认地址
 class UserAddressDefaultHandler(tornado.web.RequestHandler) :
     def put(self) :
-        
+
         result = utils.init_response_data()
 
         try :
@@ -80,10 +80,10 @@ class UserAddressDefaultHandler(tornado.web.RequestHandler) :
             default_address_query_param = dict(
                 is_default_flag = True ,
             )
-            default_address = coll.find(default_address_query_param)
-            for address in default_address :
-                address["is_default_flag"] = False
-                coll.save(address)
+            default_address_list = coll.find(default_address_query_param)
+            for default_address in default_address_list :
+                default_address["is_default_flag"] = False
+                coll.save(default_address)
 
             address["is_default_flag"] = True
             coll.save(address)
@@ -102,11 +102,12 @@ class UserAddressHandler(tornado.web.RequestHandler) :
             area = self.get_argument("area")
             address = self.get_argument("address")
             is_default_flag = self.get_argument("is_default_flag")
-            add_time = str(datetime.datetime.now()).split(".")[0]
         except Exception ,e :
             result = utils.reset_response_data(status.Status.PARMAS_ERROR,error_info=str(e))
             self.write(result)
             return
+
+        add_time = str(datetime.datetime.now()).split(".")[0]
 
         coll = models.get_coll("UserAddress")
 
@@ -116,7 +117,7 @@ class UserAddressHandler(tornado.web.RequestHandler) :
             city = city ,
             area = area ,
             address = address ,
-            is_default_flag = is_default_flag ,
+            is_default_flag = bool(is_default_flag) ,
             add_time = add_time ,
         )
         if not coll.find({"user_id":address["user_id"] , "address":address["address"]}).count():
@@ -192,6 +193,9 @@ class UserAddressHandler(tornado.web.RequestHandler) :
                 alter_params["_id"] = obj_id
                 if alter_params.has_key("user_id") :
                     del alter_params["user_id"]
+                if alter_params.has_key("is_default_flag") :
+                    del alter_params["is_default_flag"]
+
                 coll.update(query_params,{"$set":alter_params})
 
         self.write(result)
