@@ -1,11 +1,11 @@
 #coding=utf-8
 
 import sys , os
-BASE_DIR = "E:\\develop\\tornado_demo\\user_address_demo"
-sys.path.append(BASE_DIR)
 
-import settings
-import model.user_address as UserAddress
+sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
+
+from user_address_demo import settings          
+import model.user_address as UserAddress                
 
 if __name__ == "__main__" :
     UserAddress.UserAddressModel.init_test_data()
