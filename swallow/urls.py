@@ -10,12 +10,11 @@ handlers = []
 ui_modules = {}
 
 # the handler module list
-handler_names = ["handlers"]
-
+handler_names = ["address_handlers",]
 
 def _generate_handler_patterns(root_module, handler_names, prefix=""):
     for name in handler_names:
-        module = importlib.import_module("%s" % name, root_module)
+        module = importlib.import_module(".%s" % name, root_module)
         module_hanlders = getattr(module, "handlers", None)
         if module_hanlders:
             _handlers = []
@@ -37,4 +36,4 @@ def _generate_handler_patterns(root_module, handler_names, prefix=""):
 
             handlers.extend(_handlers)
 
-_generate_handler_patterns("./", handler_names)
+_generate_handler_patterns("handlers", handler_names)

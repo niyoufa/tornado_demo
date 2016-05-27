@@ -80,6 +80,10 @@ class CartHandler(tornado.web.RequestHandler):
 
 #tornado.websocket.WebSocketHandler
 class StatusHandler(tornado.websocket.WebSocketHandler):
+
+    def check_origin(self, origin):
+        return True
+
     def open(self):
         self.application.shoppingCart.register(self.callback)
 
@@ -90,6 +94,8 @@ class StatusHandler(tornado.websocket.WebSocketHandler):
         pass
         
     def callback(self, count):
+        import pdb
+        pdb.set_trace()
         self.write_message('{"inventoryCount":"%d"}' % count)
 
 class Application(tornado.web.Application):

@@ -32,7 +32,7 @@ class UserAddressListHandler(tornado.web.RequestHandler) :
             return
 
         coll = models.get_coll("UserAddress")
-        
+
         user_address_list = []
         temp_user_address_list = []
         query_params = dict(
@@ -46,7 +46,7 @@ class UserAddressListHandler(tornado.web.RequestHandler) :
             address["_id"] = utils.objectid_str(address["_id"])
 
         [ user_address_list.append(address) for address in temp_user_address_list ]
-        
+
         result["data"]["user_address_list"] = user_address_list
 
         self.write(result)
@@ -69,7 +69,7 @@ class UserAddressDefaultHandler(tornado.web.RequestHandler) :
 
         query_params = dict(
             user_id = int(user_id) ,
-            address = address , 
+            address = address ,
         )
         address = coll.find_one(query_params)
         if not address :

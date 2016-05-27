@@ -1,7 +1,7 @@
 #coding=utf-8
 
 import pdb , platform
-import sys , os
+import sys , os , pdb
 BASE_DIR = os.path.abspath(__file__)
 _root = os.path.dirname(BASE_DIR)
 sys.path.append(_root)

@@ -63,5 +63,5 @@ def load_project():
     # sys.path.append(_root)
 
     import sys , os
-    BASE_DIR = "E:\\develop\\tornado_demo\\user_address_demo"
+    BASE_DIR = "E:\\develop\\tornado_demo\\swallow"
     sys.path.append(BASE_DIR)

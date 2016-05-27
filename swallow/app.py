@@ -12,3 +12,4 @@ class Application(tornado.web.Application):
         )
 
         tornado.web.Application.__init__(self, urls.handlers , **settings)
+
